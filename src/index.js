@@ -42,8 +42,8 @@ const changeBarrierItem = position => {
 }
 
 const getNewBarrierPosition = (start, end) => {
-  // return Math.floor((start + end) / 2);
-  return Math.floor(Math.random() * Math.abs(start - end) + Math.min(start, end));
+  return Math.floor((start + end) / 2);
+  // return Math.floor(Math.random() * Math.abs(start - end) + Math.min(start, end));
 }
 const setBarrierItem = (start, end) => {
   times++;
