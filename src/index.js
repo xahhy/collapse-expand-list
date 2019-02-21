@@ -15,13 +15,19 @@ const addRandomWidthItem = (containerSelector) => {
   })
 }
 
+const getAverage = (previous, current, n) => {
+  return (previous * n + current) / (n + 1);
+}
+
 /**
  * Algorithm
  */
 // Const Variables
 const ListSelector = "#list li";
 const ContainerSelector = ".container";
-
+let times = 0;
+let previousAverage = 0;
+let count = 0;
 const getBarrierItem = index => $(ListSelector).eq(index);
 
 const shouldCollapsed = () => {
@@ -35,9 +41,12 @@ const changeBarrierItem = position => {
   getBarrierItem(position).addClass("barrier");
 }
 
-const getNewBarrierPosition = (start, end) => Math.floor((start + end) / 2);
-
+const getNewBarrierPosition = (start, end) => {
+  // return Math.floor((start + end) / 2);
+  return Math.floor(Math.random() * Math.abs(start - end) + Math.min(start, end));
+}
 const setBarrierItem = (start, end) => {
+  times++;
   if (start > end) {
     [end, start] = [start, end];
   }
@@ -62,7 +71,11 @@ function truncateList(selector, start) {
   $(".barrier").removeClass("barrier");
   if (shouldCollapsed()) {
     $(ContainerSelector).addClass("collapsed");
+    times = 0;
     setBarrierItem(start || 0, $(selector).length);
+    previousAverage = getAverage(previousAverage, times, count);
+    count++;
+    console.log("Call function average times", previousAverage);
   }
 }
 

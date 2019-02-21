@@ -10780,6 +10780,10 @@ var addRandomWidthItem = function addRandomWidthItem(containerSelector) {
     truncateList("#list li", item.index());
   });
 };
+
+var getAverage = function getAverage(previous, current, n) {
+  return (previous * n + current) / (n + 1);
+};
 /**
  * Algorithm
  */
@@ -10788,6 +10792,9 @@ var addRandomWidthItem = function addRandomWidthItem(containerSelector) {
 
 var ListSelector = "#list li";
 var ContainerSelector = ".container";
+var times = 0;
+var previousAverage = 0;
+var count = 0;
 
 var getBarrierItem = function getBarrierItem(index) {
   return $(ListSelector).eq(index);
@@ -10805,10 +10812,13 @@ var changeBarrierItem = function changeBarrierItem(position) {
 };
 
 var getNewBarrierPosition = function getNewBarrierPosition(start, end) {
-  return Math.floor((start + end) / 2);
+  // return Math.floor((start + end) / 2);
+  return Math.floor(Math.random() * Math.abs(start - end) + Math.min(start, end));
 };
 
 var setBarrierItem = function setBarrierItem(start, end) {
+  times++;
+
   if (start > end) {
     var _ref = [start, end];
     end = _ref[0];
@@ -10841,7 +10851,11 @@ function truncateList(selector, start) {
 
   if (shouldCollapsed()) {
     $(ContainerSelector).addClass("collapsed");
+    times = 0;
     setBarrierItem(start || 0, $(selector).length);
+    previousAverage = getAverage(previousAverage, times, count);
+    count++;
+    console.log("Call function average times", previousAverage);
   }
 }
 
@@ -10892,7 +10906,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58791" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57936" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
