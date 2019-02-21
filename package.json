@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "parcel build src/index.html -d docs --public-url ./",
+    "watch": "parcel watch src/index.html",
+    "serve": "parcel serve src/index.html"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cssnano": "^4.1.10",
     "less": "^3.9.0"
   },
   "dependencies": {
